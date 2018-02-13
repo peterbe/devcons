@@ -1,4 +1,11 @@
 {
   "private": true,
-  "workspaces": ["packages/home", "packages/common", "packages/normandy"]
+  "workspaces": ["packages/home", "packages/common", "packages/normandy"],
+  "scripts": {
+    "start": "cd packages/home && yarn start",
+    "build": "cd packages/home && yarn build",
+    "test": "cd packages/home && yarn test",
+    "serve":
+      "(test -d packages/home/build || yarn build) && serve -s packages/home/build"
+  }
 }
