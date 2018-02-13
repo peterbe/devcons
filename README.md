@@ -32,6 +32,23 @@ Note that `jest` only runs tests based on the files since the last commit.
 The interactive test running should mention this and you can press `a` to
 run all tests.
 
+## Source map exploration
+
+The whole point of using async loading is to avoid the cost of having to
+download a monster .js bundle for the union of all packages in all
+different workspaces. To prove that the lazy loaded chunks "self-contain"
+the packages only they need. To see this in action, globally install
+[`source-map-explorer`](https://www.npmjs.com/package/source-map-explorer).
+
+```sh
+$ yarn global add source-map-explorer
+$ yarn build
+$ ls packages/home/build/static/js
+0.0c747db6.chunk.js     0.0c747db6.chunk.js.map main.6d9855f0.js        main.6d9855f0.js.map
+$ source-map-explorer packages/home/build/static/js/0.0c747db6.chunk.js
+$ source-map-explorer packages/home/build/static/js/main.6d9855f0.js
+```
+
 ## How it works
 
 The core React app is the `packages/home` one. It's the one that imports
@@ -53,3 +70,17 @@ The user experience is ideal in that minimal build JS is downloaded
 if the user only uses some few apps, for example, only using the `home`
 app (to sign in and as landing page) and the Normandy app. Then xhe
 shouldn't have to download all the resources that `someotherapp` requires.
+
+## Caveats
+
+* When working on an app/component that isn't imported you don't get
+  those `create-react-app` `eslint` warnings immediately.
+  That's because the code you might be working on isn't imported yet.
+  Perhaps this can be solved by some hack that depends on
+  `process.env.NODE_ENV` so that it imports all files during development.
+
+* Perhaps it's not convenient to load the `home` and have the app you're
+  strongly interested in being async loaded. See point above.
+  Perhaps it's possible to write a, for example, `packages/normandy/index.js`
+  that you can start with `yarn start` specifically in that directory. Then
+  it could have a mock of the `home` app's top bar and nav etc.
