@@ -1,5 +1,8 @@
 TODO
 
+* Pretend the `home` app signs in and generates a token (JWT?). This should
+  be passed into every sub-app.
+
 * CircleCI example.
 
 * Why did I not have to do these `.babelrc` tricks?
