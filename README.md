@@ -1,6 +1,7 @@
 # Delivery Console Prototype v0
 
-This is an experimental implementation of `create-react-app` with
+This is an experimental implementation of
+[`create-react-app`](https://github.com/facebookincubator/create-react-app) with
 `react-router-dom`, `react-loadable` and `yarn workspaces`.
 
 ## To run
@@ -20,6 +21,16 @@ Globally install [`serve`](https://www.npmjs.com/package/serve)
 $ yarn serve
 $ open http://localhost:5000
 ```
+
+## To run tests
+
+```sh
+$ yarn test
+```
+
+Note that `jest` only runs tests based on the files since the last commit.
+The interactive test running should mention this and you can press `a` to
+run all tests.
 
 ## How it works
 

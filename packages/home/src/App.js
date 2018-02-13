@@ -9,7 +9,8 @@ import {
 import Loadable from 'react-loadable';
 import './App.css';
 
-import { PageNotFound } from 'common/src/PageNotFound';
+import { Home, About, SignIn, PageNotFound } from './Components';
+// import { PageNotFound } from 'common/src/PageNotFound';
 // import { PageNotFound } from 'common/src/Loading';
 // import { App as NormandyApp } from "normandy/src/App";
 // import { App as NormandyApp } from 'normandy/src/App';
@@ -22,7 +23,7 @@ import { PageNotFound } from 'common/src/PageNotFound';
 //   }
 // });
 
-// Make this more generic and not hardcoded.
+// XXX Make this more generic and not hardcoded.
 const Normandy = Loadable({
   loader: () => import('normandy/src/App'),
   loading() {
@@ -101,55 +102,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <h2>Welcome To The Delivery Console</h2>
-        <p>Pick an app in the Menu above</p>
-      </div>
-    );
-  }
-}
-
-class About extends React.Component {
-  render() {
-    return (
-      <div>
-        <h2>About This App</h2>
-        <p>
-          The Delivery Console spans multiple React components that might all
-          function differently.
-        </p>
-        <p>
-          <Link to="/">Back to Home homepage</Link>
-        </p>
-      </div>
-    );
-  }
-}
-
-class SignIn extends React.PureComponent {
-  fakeSignIn = event => {
-    event.preventDefault();
-    const camefrom = window.sessionStorage.getItem('camefrom');
-    if (window.confirm('Is your name Slim?')) {
-      console.log('Sign in');
-    }
-    // alert("Imagine a Sign In modal right here and now.");
-    if (camefrom) {
-      alert(`After successful log in, go to: ${camefrom}`);
-    }
-  };
-  render() {
-    return (
-      <div>
-        <h2>Sign In</h2>
-        <form onSubmit={this.fakeSignIn}>
-          <button type="submit">Click here to Sign In with Auth9</button>
-        </form>
-      </div>
-    );
-  }
-}
