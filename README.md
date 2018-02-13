@@ -6,6 +6,14 @@ This is an experimental implementation of
 
 ## To run
 
+For this to work you first need to enable workspaces in `yarn`. Simply run:
+
+```sh
+$ yarn config set workspaces-experimental true
+```
+
+That should update your `~/.yarnrc`.
+
 ```sh
 $ git clone https://github.com/peterbe/devcons.git
 $ yarn
