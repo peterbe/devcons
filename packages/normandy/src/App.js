@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Link,
   Switch
-} from "react-router-dom";
+} from 'react-router-dom';
 
-export class App extends React.Component {
+class App extends React.Component {
   // componentDidMount() {
   //   console.log(this.props.location);
   // }
@@ -24,6 +24,8 @@ export class App extends React.Component {
     );
   }
 }
+
+export default App;
 
 class Home extends React.Component {
   render() {

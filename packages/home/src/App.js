@@ -1,17 +1,34 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Link,
   Switch
-} from "react-router-dom";
-import "./App.css";
+} from 'react-router-dom';
+import Loadable from 'react-loadable';
+import './App.css';
 
-import { PageNotFound } from "common/src/PageNotFound";
+import { PageNotFound } from 'common/src/PageNotFound';
+// import { PageNotFound } from 'common/src/Loading';
 // import { App as NormandyApp } from "normandy/src/App";
-import { App as NormandyApp } from "normandy/src/App";
+// import { App as NormandyApp } from 'normandy/src/App';
 // console.log("TEST", NormandyApp);
+
+// const LoadableNormandyApp = Loadable({
+//   loader: () => import('normandy/src/App'),
+//   loading() {
+//     return <div>Loading...</div>;
+//   }
+// });
+
+// Make this more generic and not hardcoded.
+const Normandy = Loadable({
+  loader: () => import('normandy/src/App'),
+  loading() {
+    return <div>Loading Normandy...</div>;
+  }
+});
 
 class App extends React.Component {
   setCameFrom = event => {
@@ -19,7 +36,7 @@ class App extends React.Component {
     if (window.location.search) {
       camefrom += window.location.search;
     }
-    window.sessionStorage.setItem("camefrom", camefrom);
+    window.sessionStorage.setItem('camefrom', camefrom);
   };
   render() {
     return (
@@ -29,7 +46,7 @@ class App extends React.Component {
             <Link
               to="/signin"
               type="button"
-              style={{ float: "right", color: "white" }}
+              style={{ float: 'right', color: 'white' }}
               onClick={this.setCameFrom}
             >
               Sign In
@@ -58,7 +75,9 @@ class App extends React.Component {
               <Route path="/about" component={About} />
               {/* <Route path="/normandy" component={NormandyApp} /> */}
               {/* <Redirect from="/old-match" to="/will-match"/> */}
-              <Route path="/normandy" component={NormandyApp} />
+              {/* <Route path="/normandy" component={NormandyApp} /> */}
+              <Route path="/normandy" component={Normandy} />
+              {/* <Route path="/normandy" component={LoadableNormandyApp} /> */}
               {/* <Route
                 path="/normandy"
                 render={props => {
@@ -71,7 +90,7 @@ class App extends React.Component {
           </main>
           <footer>
             <p>
-              Delivery Console v1 using {React.version} {" - "}
+              Delivery Console v1 using {React.version} {' - '}
               <Link to="/about">About this App</Link>
             </p>
           </footer>
@@ -114,9 +133,9 @@ class About extends React.Component {
 class SignIn extends React.PureComponent {
   fakeSignIn = event => {
     event.preventDefault();
-    const camefrom = window.sessionStorage.getItem("camefrom");
-    if (window.confirm("Is your name Slim?")) {
-      console.log("Sign in");
+    const camefrom = window.sessionStorage.getItem('camefrom');
+    if (window.confirm('Is your name Slim?')) {
+      console.log('Sign in');
     }
     // alert("Imagine a Sign In modal right here and now.");
     if (camefrom) {
