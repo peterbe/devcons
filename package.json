@@ -1,0 +1,4 @@
+{
+  "private": true,
+  "workspaces": ["packages/home", "packages/common", "packages/normandy"]
+}
