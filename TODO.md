@@ -1,5 +1,8 @@
 TODO
 
+* If the `home` app and the `normandy` app shares some third-party package,
+  will the bundle for normandy "repeat" this?
+
 * Pretend the `home` app signs in and generates a token (JWT?). This should
   be passed into every sub-app.
 
