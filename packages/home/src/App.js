@@ -9,7 +9,13 @@ import {
 import Loadable from 'react-loadable';
 import './App.css';
 
-import { Home, About, SignIn, PageNotFound } from './Components';
+import {
+  Home,
+  About,
+  SignIn,
+  PageNotFound,
+  LoadingWrapper
+} from './Components';
 // import { PageNotFound } from 'common/src/PageNotFound';
 // import { PageNotFound } from 'common/src/Loading';
 // import { App as NormandyApp } from "normandy/src/App";
@@ -26,9 +32,7 @@ import { Home, About, SignIn, PageNotFound } from './Components';
 // XXX Make this more generic and not hardcoded.
 const Normandy = Loadable({
   loader: () => import('normandy/src/App'),
-  loading() {
-    return <div>Loading Normandy...</div>;
-  }
+  loading: LoadingWrapper('Normandy')
 });
 
 class App extends React.Component {
@@ -39,6 +43,36 @@ class App extends React.Component {
     }
     window.sessionStorage.setItem('camefrom', camefrom);
   };
+
+  componentDidMount() {
+    // XXX There's a cool thing we could do.
+    // Now that the home app has loaded, we could ask our localStorage
+    // or something for the users preferred app(s). Suppose we
+    // can figure out that this user often loads Normandy, we could
+    // trigger `Normandy.preload()`
+    // this._preloadApp('normandy');
+  }
+
+  onNavLinkHover = app => {
+    this._preloadApp(app);
+  };
+
+  // Memory of which apps have been preloaded.
+  preloadedApps = new Set();
+
+  _preloadApp = app => {
+    if (!this.preloadedApps.has(app)) {
+      this.preloadedApps.add(app);
+      switch (app) {
+        case 'normandy':
+          Normandy.preload();
+          break;
+        default:
+          console.warn(`Not sure how to reload: ${app}`);
+      }
+    }
+  };
+
   render() {
     return (
       <Router>
@@ -58,7 +92,12 @@ class App extends React.Component {
                 <NavLink to="/">Console Home</NavLink>
               </li>
               <li>
-                <NavLink to="/normandy">Normandy</NavLink>
+                <NavLink
+                  to="/normandy"
+                  onMouseOver={e => this.onNavLinkHover('normandy')}
+                >
+                  Normandy
+                </NavLink>
               </li>
             </ul>
           </header>

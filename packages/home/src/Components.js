@@ -1,6 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+export const LoadingWrapper = name => {
+  return props => {
+    if (props.error) {
+      return <div>Error loading {name}!</div>;
+    } else if (props.timedOut) {
+      return <div>Taking a long time...</div>;
+    } else if (props.pastDelay) {
+      return <div>Loading {name}...</div>;
+    } else {
+      return null;
+    }
+  };
+};
+
 export class Home extends React.Component {
   render() {
     return (
