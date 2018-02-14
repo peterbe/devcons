@@ -1,5 +1,7 @@
 TODO
 
+* Setting a delay on the Loadable() as an option doesn't seem to work.
+
 * If the `home` app and the `normandy` app shares some third-party package,
   will the bundle for normandy "repeat" this?
 
